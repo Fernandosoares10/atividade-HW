@@ -1,8 +1,8 @@
 # ==========================================
 # Q1.asm - Conversões de base 10
 # Autor: Fernando Silva
-# email: fss3@cesar.scholl
-# data/hora 14/11/25 8:45
+# email: fss3@cesar.school
+# data/hora 14/11/25 19:15
 # ==========================================
 
 .data
@@ -188,3 +188,40 @@ print_loop:
 end:
     li $v0, 10
     syscall
+
+# ==========================================
+# CalculadoraProgramador.asm
+# Converte decimal para bases, complemento de 2,
+# e ponto flutuante (float e double)
+# ==========================================
+
+.data
+menu: .asciiz "\n=== CALCULADORA PROGRAMADOR ===\n1) Bases\n2) Complemento de 2\n3) Float e Double\nEscolha: "
+newline: .asciiz "\n"
+.text
+main:
+    li $v0, 4
+    la $a0, menu
+    syscall
+    li $v0, 5
+    syscall
+    move $t0, $v0
+
+    beq $t0, 1, bases
+    beq $t0, 2, complemento
+    beq $t0, 3, floatconv
+    j fim
+
+bases: 
+    jal decToBases
+    j fim
+complemento:
+    jal complemento2
+    j fim
+floatconv:
+    jal pontoFlutuante
+    j fim
+fim:
+    li $v0, 10
+    syscall
+
